@@ -35,4 +35,14 @@
     <string name="draws">Ничьих: 0</string>
     <string name="best_streak">Лучшая серия: 5 побед</string>
 
+    <string name="choose_color">Выберите цвет фигур</string>
+    <string name="white_pieces">Белые</string>
+    <string name="black_pieces">Черные</string>
+
+    <string name="your_turn">Ваш ход</string>
+    <string name="opponent_turn">Ход противника</string>
+    <string name="white">Белые</string>
+    <string name="black">Черные</string>
+    <string name="game_restarted">Игра перезапущена</string>
+
 </resources>

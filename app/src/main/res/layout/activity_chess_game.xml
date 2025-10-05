@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Фоновая картинка -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1" />
+
+    <!-- Затемняющий слой -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
+
+    <!-- Основной контент -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Верхняя панель -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="←"
+                android:textSize="18sp"
+                android:backgroundTint="#f70f72"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvCurrentPlayer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ваш ход (Белые)"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/btnRestart"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:text="Заново"
+                android:textSize="14sp"
+                android:backgroundTint="#4169E1"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <!-- Шахматная доска -->
+        <GridLayout
+            android:id="@+id/chessGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:columnCount="8"
+            android:rowCount="8"
+            android:background="@android:color/transparent" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -29,6 +29,12 @@
             android:name=".StatisticActivity"
             android:exported="false"
             android:configChanges="locale|layoutDirection" />
+        <activity
+            android:name=".ColorSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChessGameActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -35,4 +35,14 @@
     <string name="draws">Draws: 0</string>
     <string name="best_streak">Best streak: 5 wins</string>
 
+    <string name="choose_color">Choose your pieces color</string>
+    <string name="white_pieces">White</string>
+    <string name="black_pieces">Black</string>
+
+    <string name="your_turn">Your turn</string>
+    <string name="opponent_turn">Opponent\'s turn</string>
+    <string name="white">White</string>
+    <string name="black">Black</string>
+    <string name="game_restarted">Game restarted</string>
+
 </resources>

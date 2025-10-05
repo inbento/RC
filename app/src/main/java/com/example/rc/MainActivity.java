@@ -167,7 +167,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startGame() {
-        Toast.makeText(this, getString(R.string.start_game), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, ColorSelectionActivity.class);
+        startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private void openKingsScreen() {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="start|top"
+        android:backgroundTint="#f70f72"
+        android:text="←"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_color"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="50dp" />
+
+        <Button
+            android:id="@+id/btnWhite"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:text="@string/white_pieces"
+            android:textSize="20sp"
+            android:background="@drawable/btn_white"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="30dp" />
+
+        <Button
+            android:id="@+id/btnBlack"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:text="@string/black_pieces"
+            android:textSize="20sp"
+            android:background="@drawable/btn_black"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+</FrameLayout>
