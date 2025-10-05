@@ -90,11 +90,11 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:id="@+id/unk1"
+                    android:id="@+id/king_of_elf"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/unk_bg" />
+                    android:src="@drawable/king_of_elf_bg" />
             </FrameLayout>
 
             <FrameLayout
@@ -105,11 +105,11 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:id="@+id/unk2"
+                    android:id="@+id/king_of_gnom"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/unk_bg" />
+                    android:src="@drawable/king_of_gnom_bg" />
             </FrameLayout>
 
         </LinearLayout>

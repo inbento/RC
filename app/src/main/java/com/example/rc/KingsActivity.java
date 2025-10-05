@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class KingsActivity extends AppCompatActivity {
 
     private Button btnBack;
-    private ImageView king_of_man, king_of_dragon, king3, king4;
+    private ImageView king_of_man, king_of_dragon, king_of_elf, king_of_gnom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,8 @@ public class KingsActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         king_of_man = findViewById(R.id.king_of_man);
         king_of_dragon = findViewById(R.id.king_of_dragon);
-        king3 = findViewById(R.id.unk1);
-        king4 = findViewById(R.id.unk2);
+        king_of_elf = findViewById(R.id.king_of_elf);
+        king_of_gnom = findViewById(R.id.king_of_gnom);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

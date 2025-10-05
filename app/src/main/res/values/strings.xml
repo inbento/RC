@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Royal Chess</string>
+    <string name="change_language">Сменить язык</string>
+    <string name="start_game">Начать игру</string>
+    <string name="kings">Короли</string>
+    <string name="statistics">Статистика</string>
+    <string name="exit">Выход</string>
+    <string name="select_language">Выберите язык</string>
+    <string name="russian">Русский</string>
+    <string name="english">Английский</string>
+
+    <string name="statistics_title">Статистика</string>
+    <string name="general_statistics">ОБЩАЯ СТАТИСТИКА</string>
+    <string name="wins_by_color">ПОБЕДЫ ПО ЦВЕТАМ</string>
+    <string name="white_wins">Белые: 12 побед</string>
+    <string name="black_wins">Черные: 8 побед</string>
+    <string name="kings_statistics">СТАТИСТИКА КОРОЛЕЙ</string>
+    <string name="human_king">Король людей: 7 игр</string>
+    <string name="dragon_king">Король драконов: 5 игр</string>
+    <string name="elf_king">Король эльфов: 3 игры</string>
+    <string name="gnom_king">Король гномов: 5 игр</string>
+    <string name="captured_pieces">СЪЕДЕННЫЕ ФИГУРЫ</string>
+    <string name="total_pieces">Всего: 147 фигур</string>
+    <string name="pawns">Пешки: 89</string>
+    <string name="rooks">Ладьи: 18</string>
+    <string name="knights">Кони: 15</string>
+    <string name="bishops">Слоны: 12</string>
+    <string name="queens">Ферзи: 10</string>
+    <string name="game_time">ВРЕМЯ В ИГРЕ</string>
+    <string name="total_time">Общее время: 45ч 32м</string>
+    <string name="avg_game">Средняя игра: 25м</string>
+    <string name="max_session">Максимальная сессия: 3ч 15м</string>
+    <string name="additional">ДОПОЛНИТЕЛЬНО</string>
+    <string name="total_games">Всего игр: 20</string>
+    <string name="draws">Ничьих: 0</string>
+    <string name="best_streak">Лучшая серия: 5 побед</string>
+
 </resources>
