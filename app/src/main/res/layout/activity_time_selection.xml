@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFF5F5F5">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Выберите время на игру"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"
+        android:textColor="@android:color/black" />
+
+    <RadioGroup
+        android:id="@+id/radioTimeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp">
+
+        <RadioButton
+            android:id="@+id/radio1min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 минута"
+            android:textSize="18sp"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/radio3min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3 минуты"
+            android:textSize="18sp"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/radio5min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5 минут"
+            android:textSize="18sp"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/radio10min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10 минут"
+            android:textSize="18sp"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/radio30min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="30 минут"
+            android:textSize="18sp"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/radioUnlimited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Без ограничения"
+            android:textSize="18sp"
+            android:padding="12dp" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Назад"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#FF6B7280" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Выбрать"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#FF10B981" />
+
+    </LinearLayout>
+
+</LinearLayout>

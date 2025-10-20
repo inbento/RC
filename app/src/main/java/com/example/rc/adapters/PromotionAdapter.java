@@ -11,6 +11,7 @@ import com.example.rc.R;
 public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.PromotionViewHolder> {
 
     private String[] promotionPieces;
+    private String[] pieceNames;
     private OnPromotionPieceSelected listener;
     private boolean isWhite;
 
@@ -25,8 +26,10 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
         // Определяем символы в зависимости от цвета
         if (isWhite) {
             promotionPieces = new String[]{"♕", "♖", "♗", "♘"}; // Белые фигуры
+            pieceNames = new String[]{"Ферзь", "Ладья", "Слон", "Конь"};
         } else {
             promotionPieces = new String[]{"♛", "♜", "♝", "♞"}; // Черные фигуры
+            pieceNames = new String[]{"Ферзь", "Ладья", "Слон", "Конь"};
         }
     }
 
@@ -40,11 +43,13 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
 
     @Override
     public void onBindViewHolder(@NonNull PromotionViewHolder holder, int position) {
-        holder.tvPiece.setText(promotionPieces[position]);
-        holder.tvPiece.setTextColor(isWhite ? 0xFF000000 : 0xFFFFFFFF);
+        if (promotionPieces == null || pieceNames == null) return;
 
-        // Устанавливаем названия фигур
-        String[] pieceNames = {"Ферзь", "Ладья", "Слон", "Конь"};
+        holder.tvPiece.setText(promotionPieces[position]);
+
+        holder.tvPiece.setTextColor(0xFF78DBE2);
+        holder.tvPieceName.setTextColor(0xFF78DBE2);
+        
         holder.tvPieceName.setText(pieceNames[position]);
 
         holder.itemView.setOnClickListener(v -> {
@@ -53,11 +58,13 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
                 listener.onPieceSelected(position + 1);
             }
         });
+
+        holder.itemView.setContentDescription("Promotion: " + pieceNames[position]);
     }
 
     @Override
     public int getItemCount() {
-        return promotionPieces.length;
+        return promotionPieces != null ? promotionPieces.length : 0;
     }
 
     static class PromotionViewHolder extends RecyclerView.ViewHolder {
@@ -68,6 +75,10 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
             super(itemView);
             tvPiece = itemView.findViewById(R.id.tvPiece);
             tvPieceName = itemView.findViewById(R.id.tvPieceName);
+
+            if (tvPiece == null || tvPieceName == null) {
+                throw new RuntimeException("Promotion item views not found");
+            }
         }
     }
 }

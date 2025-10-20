@@ -18,7 +18,7 @@
     <string name="human_king">Human King: 7 games</string>
     <string name="dragon_king">Dragon King: 5 games</string>
     <string name="elf_king">Elf King: 3 games</string>
-    <string name="gnom_king">Gnom King: 5 games</string>
+    <string name="gnom_king">Dwarven King: 5 games</string>
     <string name="captured_pieces">CAPTURED PIECES</string>
     <string name="total_pieces">Total: 147 pieces</string>
     <string name="pawns">Pawns: 89</string>
@@ -44,5 +44,36 @@
     <string name="white">White</string>
     <string name="black">Black</string>
     <string name="game_restarted">Game restarted</string>
+
+    <string name="kings_gallery">Kings Gallery</string>
+    <string name="king_selected">Selected: %s</string>
+
+    <string name="king_man_name">Human King</string>
+    <string name="king_dragon_name">Dragon King</string>
+    <string name="king_elf_name">Elf King</string>
+    <string name="king_gnom_name">Dwarven King</string>
+
+    <string name="king_man_description">Wise ruler of the human kingdom, known for his justice</string>
+    <string name="king_dragon_description">Ancient dragon guarding the mountain treasures</string>
+    <string name="king_elf_description">Eternal protector of elven forests and magic</string>
+    <string name="king_gnom_description">Skilled master of underground realms and mechanisms</string>
+
+    <string name="faction_human">Humans</string>
+    <string name="faction_dragon">Dragons</string>
+    <string name="faction_elf">Elves</string>
+    <string name="faction_gnome">Dwarves</string>
+
+    <string name="time_settings">Time Settings</string>
+    <string name="choose_time">Choose game time</string>
+    <string name="time_1_minute">1 minute</string>
+    <string name="time_3_minutes">3 minutes</string>
+    <string name="time_5_minutes">5 minutes</string>
+    <string name="time_10_minutes">10 minutes</string>
+    <string name="time_30_minutes">30 minutes</string>
+    <string name="time_unlimited">Unlimited</string>
+    <string name="selected_time">Selected: %d minutes</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="choose">Choose</string>
 
 </resources>
