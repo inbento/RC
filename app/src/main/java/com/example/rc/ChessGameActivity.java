@@ -17,12 +17,13 @@ import android.widget.Toast;
 import com.example.rc.adapters.PromotionAdapter;
 import com.example.rc.chess.ChessBoard;
 import com.example.rc.chess.ChessPiece;
+import com.example.rc.chess.ChessTimer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChessGameActivity extends AppCompatActivity
-        implements PromotionAdapter.OnPromotionPieceSelected {
+        implements PromotionAdapter.OnPromotionPieceSelected, ChessTimer.TimerListener {
 
     private ChessBoard chessBoard;
     private GridLayout chessGrid;
@@ -39,21 +40,34 @@ public class ChessGameActivity extends AppCompatActivity
     private int promotionRow = -1;
     private int promotionCol = -1;
 
+    private ChessTimer chessTimer;
+    private TextView tvWhiteTimer, tvBlackTimer;
+    private View indicatorWhite, indicatorBlack;
+    private boolean isTimedGame = true;
+    private long gameTimeSeconds = 600;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chess_game);
 
-        // Получаем данные из Intent
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             isPlayerWhite = extras.getBoolean("player_color_white", true);
-        } else {
-            isPlayerWhite = true;
+            gameTimeSeconds = extras.getInt("game_time_seconds", 600);
+            isTimedGame = extras.getBoolean("is_timed_game", true);
         }
 
         initViews();
-        setupChessBoard(); // ДОЛЖЕН БЫТЬ ДО setupAdapters()
+        setupChessBoard();
+
+        if (isTimedGame) {
+            setupTimer();
+        } else {
+            findViewById(R.id.timerWhiteLayout).setVisibility(View.GONE);
+            findViewById(R.id.timerBlackLayout).setVisibility(View.GONE);
+        }
+
         setupAdapters();
         updatePlayerTurn();
     }
@@ -76,7 +90,37 @@ public class ChessGameActivity extends AppCompatActivity
         if (promotionDialog != null) {
             promotionDialog.setVisibility(View.GONE);
         }
+
+        tvWhiteTimer = findViewById(R.id.tvWhiteTimer);
+        tvBlackTimer = findViewById(R.id.tvBlackTimer);
+        indicatorWhite = findViewById(R.id.indicatorWhite);
+        indicatorBlack = findViewById(R.id.indicatorBlack);
     }
+
+    private void setupTimer() {
+        long initialTimeMillis = gameTimeSeconds * 1000;
+        chessTimer = new ChessTimer(initialTimeMillis, tvWhiteTimer, tvBlackTimer,
+                indicatorWhite, indicatorBlack, this);
+    }
+
+    @Override
+    public void onTimeOut(boolean isWhite) {
+        String loser = isWhite ? "Белые" : "Черные";
+        String winner = isWhite ? "Черные" : "Белые";
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Время вышло!")
+                .setMessage(loser + " проиграли по времени!\nПобедили: " + winner)
+                .setPositiveButton("Новая игра", (dialog, which) -> restartGame())
+                .setNegativeButton("Выход", (dialog, which) -> finish())
+                .setCancelable(false)
+                .show();
+
+        chessTimer.stop();
+    }
+
+    @Override
+    public void onTimeUpdate(long whiteTime, long blackTime) {}
 
     private void setupChessBoard() {
 
@@ -134,7 +178,17 @@ public class ChessGameActivity extends AppCompatActivity
 
         if (chessBoard.getSelectedPiece() != null) {
             if (chessBoard.movePiece(row, col)) {
+                if (isTimedGame && chessTimer != null) {
+                    if (!chessTimer.isRunning()) {
+                        chessTimer.start();
+                    } else {
+                        chessTimer.switchTurn();
+                    }
+                }
                 if (isPawnPromotion(row, col)) {
+                    if (isTimedGame && chessTimer != null) {
+                        chessTimer.pause();
+                    }
                     showPromotionDialog(row, col);
                 } else {
                     updateBoard();
@@ -196,10 +250,16 @@ public class ChessGameActivity extends AppCompatActivity
     @Override
     public void onPieceSelected(int pieceType) {
         if (promotionRow != -1 && promotionCol != -1) {
+            if (isTimedGame && chessTimer != null) {
+                chessTimer.pause();
+            }
             chessBoard.promotePawn(promotionRow, promotionCol, pieceType);
             updateBoard();
             updatePlayerTurn();
             hidePromotionDialog();
+            if (isTimedGame && chessTimer != null) {
+                chessTimer.resume();
+            }
         }
     }
 
@@ -252,9 +312,40 @@ public class ChessGameActivity extends AppCompatActivity
 
     private void restartGame() {
         chessBoard = new ChessBoard();
+        if (isTimedGame) {
+            if (chessTimer != null) {
+                chessTimer.reset(gameTimeSeconds * 1000);
+            } else {
+                setupTimer();
+            }
+        }
         setupChessBoard();
         updatePlayerTurn();
         hidePromotionDialog();
         Toast.makeText(this, getString(R.string.game_restarted), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isTimedGame && chessTimer != null) {
+            chessTimer.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (isTimedGame && chessTimer != null) {
+            chessTimer.resume();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isTimedGame && chessTimer != null) {
+            chessTimer.stop();
+        }
     }
 }

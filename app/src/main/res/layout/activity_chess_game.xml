@@ -3,27 +3,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Фоновая картинка -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/bg1" />
 
-    <!-- Затемняющий слой -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000" />
 
-    <!-- Основной контент -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp">
 
-        <!-- Верхняя панель -->
+        <LinearLayout
+            android:id="@+id/timerBlackLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="#80000000"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Черные:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="12dp" />
+
+            <TextView
+                android:id="@+id/tvBlackTimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="10:00"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:background="#FF0000"
+                android:visibility="invisible"
+                android:id="@+id/indicatorBlack" />
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,16 +98,61 @@
 
         </LinearLayout>
 
-        <!-- Шахматная доска -->
-        <GridLayout
-            android:id="@+id/chessGrid"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:columnCount="8"
-            android:rowCount="8"
-            android:background="@android:color/transparent" />
+            android:gravity="center">
 
+            <GridLayout
+                android:id="@+id/chessGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:columnCount="8"
+                android:rowCount="8"
+                android:background="@android:color/transparent" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/timerWhiteLayout"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="#80000000"
+            android:gravity="center_vertical"
+            android:padding="12dp"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Белые:"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="12dp" />
+
+            <TextView
+                android:id="@+id/tvWhiteTimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="10:00"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:background="#00FF00"
+                android:visibility="invisible"
+                android:id="@+id/indicatorWhite" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -12,8 +12,8 @@
     <string name="statistics_title">Статистика</string>
     <string name="general_statistics">ОБЩАЯ СТАТИСТИКА</string>
     <string name="wins_by_color">ПОБЕДЫ ПО ЦВЕТАМ</string>
-    <string name="white_wins">Белые: 12 побед</string>
-    <string name="black_wins">Черные: 8 побед</string>
+    <string name="white_wins_stat">Белые: 12 побед</string>
+    <string name="black_wins_stat">Черные: 8 побед</string>
     <string name="kings_statistics">СТАТИСТИКА КОРОЛЕЙ</string>
     <string name="human_king">Король людей: 7 игр</string>
     <string name="dragon_king">Король драконов: 5 игр</string>
@@ -77,5 +77,10 @@
 
     <string name="confirm">Подтвердить</string>
     <string name="choose">Выбрать</string>
+
+    <string name="time_out">Время вышло!</string>
+    <string name="white_wins">Победили Белые!</string>
+    <string name="black_wins">Победили Черные!</string>
+    <string name="new_game">Новая игра</string>
 
 </resources>

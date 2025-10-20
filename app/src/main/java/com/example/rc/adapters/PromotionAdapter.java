@@ -49,7 +49,7 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.Prom
 
         holder.tvPiece.setTextColor(0xFF78DBE2);
         holder.tvPieceName.setTextColor(0xFF78DBE2);
-        
+
         holder.tvPieceName.setText(pieceNames[position]);
 
         holder.itemView.setOnClickListener(v -> {

@@ -12,8 +12,8 @@
     <string name="statistics_title">Statistics</string>
     <string name="general_statistics">GENERAL STATISTICS</string>
     <string name="wins_by_color">WINS BY COLOR</string>
-    <string name="white_wins">White: 12 wins</string>
-    <string name="black_wins">Black: 8 wins</string>
+    <string name="white_wins_stat">White: 12 wins</string>
+    <string name="black_wins_stat">Black: 8 wins</string>
     <string name="kings_statistics">KINGS STATISTICS</string>
     <string name="human_king">Human King: 7 games</string>
     <string name="dragon_king">Dragon King: 5 games</string>
@@ -75,5 +75,10 @@
 
     <string name="confirm">Confirm</string>
     <string name="choose">Choose</string>
+
+    <string name="time_out">Time\'s up!</string>
+    <string name="white_wins">White wins!</string>
+    <string name="black_wins">Black wins!</string>
+    <string name="new_game">New game</string>
 
 </resources>

@@ -45,8 +45,8 @@ public class StatisticActivity extends AppCompatActivity {
         String statistics = "• " + getString(R.string.general_statistics) + "\n\n" +
 
                 "• " + getString(R.string.wins_by_color) + "\n" +
-                "• " + getString(R.string.white_wins) + "\n" +
-                "• " + getString(R.string.black_wins) + "\n\n" +
+                "• " + getString(R.string.white_wins_stat) + "\n" +
+                "• " + getString(R.string.black_wins_stat) + "\n\n" +
 
                 "• " + getString(R.string.kings_statistics) + "\n" +
                 "• " + getString(R.string.human_king) + "\n" +
