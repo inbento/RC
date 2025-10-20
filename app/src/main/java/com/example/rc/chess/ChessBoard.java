@@ -109,6 +109,35 @@ public class ChessBoard {
         return false;
     }
 
+    public void promotePawn(int row, int col, int pieceType) {
+        ChessPiece pawn = getPiece(row, col);
+        if (pawn == null || pawn.getType() != ChessPiece.PieceType.PAWN) {
+            return;
+        }
+
+        boolean isWhite = pawn.isWhite();
+        ChessPiece newPiece;
+
+        switch (pieceType) {
+            case 1: // Ферзь
+                newPiece = new Queen(isWhite, row, col);
+                break;
+            case 2: // Ладья
+                newPiece = new Rook(isWhite, row, col);
+                break;
+            case 3: // Слон
+                newPiece = new Bishop(isWhite, row, col);
+                break;
+            case 4: // Конь
+                newPiece = new Knight(isWhite, row, col);
+                break;
+            default:
+                newPiece = new Queen(isWhite, row, col); // По умолчанию ферзь
+        }
+
+        board[row][col] = newPiece;
+    }
+
     public ChessPiece getSelectedPiece() { return selectedPiece; }
     public List<int[]> getPossibleMoves() { return possibleMoves; }
     public boolean isWhiteTurn() { return isWhiteTurn; }

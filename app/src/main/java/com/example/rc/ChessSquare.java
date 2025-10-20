@@ -49,7 +49,7 @@ public class ChessSquare extends AppCompatTextView {
         updateBackground();
     }
 
-    private void updateBaseColor() {
+    public void updateBaseColor() {
         // Более насыщенные цвета для лучшей видимости на фоне
         if ((row + col) % 2 == 0) {
             setBackgroundColor(Color.parseColor("#E8D5B7")); // Более насыщенный светлый
@@ -90,6 +90,8 @@ public class ChessSquare extends AppCompatTextView {
                 return "";
         }
     }
+
+
 
     public int getRow() { return row; }
     public int getCol() { return col; }

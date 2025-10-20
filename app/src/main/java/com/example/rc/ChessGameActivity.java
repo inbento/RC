@@ -1,20 +1,28 @@
 package com.example.rc;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rc.adapters.PromotionAdapter;
 import com.example.rc.chess.ChessBoard;
 import com.example.rc.chess.ChessPiece;
 
-public class ChessGameActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ChessGameActivity extends AppCompatActivity
+        implements PromotionAdapter.OnPromotionPieceSelected {
 
     private ChessBoard chessBoard;
     private GridLayout chessGrid;
@@ -22,6 +30,14 @@ public class ChessGameActivity extends AppCompatActivity {
     private Button btnBack, btnRestart;
     private boolean isPlayerWhite;
     private ChessSquare[][] squares = new ChessSquare[8][8];
+
+    private RecyclerView rvPromotion;
+    private PromotionAdapter promotionAdapter;
+    private List<String> moves = new ArrayList<>();
+    private LinearLayout promotionDialog;
+
+    private int promotionRow = -1;
+    private int promotionCol = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +48,7 @@ public class ChessGameActivity extends AppCompatActivity {
         isPlayerWhite = intent.getBooleanExtra("player_color_white", true);
 
         initViews();
+        setupAdapters();
         setupChessBoard();
         updatePlayerTurn();
     }
@@ -42,16 +59,36 @@ public class ChessGameActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         btnRestart = findViewById(R.id.btnRestart);
 
+        // Инициализация элементов для превращения пешки
+        rvPromotion = findViewById(R.id.rvPromotion);
+        promotionDialog = findViewById(R.id.promotionDialog);
+
         chessGrid.setColumnCount(8);
         chessGrid.setRowCount(8);
 
         btnBack.setOnClickListener(v -> finish());
         btnRestart.setOnClickListener(v -> restartGame());
+
+        // Скрываем диалог превращения при старте
+        if (promotionDialog != null) {
+            promotionDialog.setVisibility(View.GONE);
+        }
+    }
+
+    private void setupAdapters() {
+        if (rvPromotion != null) {
+            // Адаптер превращения пешки
+            promotionAdapter = new PromotionAdapter(this, isPlayerWhite);
+            rvPromotion.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            rvPromotion.setAdapter(promotionAdapter);
+        }
     }
 
     private void setupChessBoard() {
         chessBoard = new ChessBoard();
-        chessGrid.removeAllViews();
+        if (chessGrid != null) {
+            chessGrid.removeAllViews();
+        }
 
         // Получаем размер экрана для расчета размера клеток
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
@@ -82,22 +119,31 @@ public class ChessGameActivity extends AppCompatActivity {
                 square.setOnClickListener(v -> handleSquareClick(finalRow, finalCol));
 
                 squares[row][col] = square;
-                chessGrid.addView(square);
+                if (chessGrid != null) {
+                    chessGrid.addView(square);
+                }
             }
         }
     }
 
     private void handleSquareClick(int row, int col) {
+        if (promotionDialog != null && promotionDialog.getVisibility() == View.VISIBLE) {
+            return;
+        }
+
         ChessPiece piece = chessBoard.getPiece(row, col);
 
         // Если фигура уже выбрана, пытаемся сделать ход
         if (chessBoard.getSelectedPiece() != null) {
             if (chessBoard.movePiece(row, col)) {
-                clearAllSelection();
-                updateBoard();
-                updatePlayerTurn();
+                // Проверяем превращение пешки
+                if (isPawnPromotion(row, col)) {
+                    showPromotionDialog(row, col);
+                } else {
+                    updateBoard();
+                    updatePlayerTurn();
+                }
             } else {
-                // Если ход не удался, выбираем новую фигуру (если это наша)
                 if (piece != null && piece.isWhite() == chessBoard.isWhiteTurn()) {
                     clearAllSelection();
                     chessBoard.selectPiece(row, col);
@@ -109,7 +155,6 @@ public class ChessGameActivity extends AppCompatActivity {
                 }
             }
         } else {
-            // Выбираем фигуру (если это наша)
             if (piece != null && piece.isWhite() == chessBoard.isWhiteTurn()) {
                 if (chessBoard.selectPiece(row, col)) {
                     clearAllSelection();
@@ -120,10 +165,49 @@ public class ChessGameActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isPawnPromotion(int row, int col) {
+        ChessPiece piece = chessBoard.getPiece(row, col);
+        if (piece != null && piece.getType() == ChessPiece.PieceType.PAWN) {
+            // Пешка дошла до последней горизонтали
+            return (piece.isWhite() && row == 0) || (!piece.isWhite() && row == 7);
+        }
+        return false;
+    }
+
+    private void showPromotionDialog(int row, int col) {
+        promotionRow = row;
+        promotionCol = col;
+        if (promotionDialog != null) {
+            promotionDialog.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hidePromotionDialog() {
+        if (promotionDialog != null) {
+            promotionDialog.setVisibility(View.GONE);
+        }
+        promotionRow = -1;
+        promotionCol = -1;
+    }
+
+    // Реализация интерфейса для выбора фигуры при превращении
+    @Override
+    public void onPieceSelected(int pieceType) {
+        if (promotionRow != -1 && promotionCol != -1) {
+            // Превращаем пешку в выбранную фигуру
+            chessBoard.promotePawn(promotionRow, promotionCol, pieceType);
+            updateBoard();
+            updatePlayerTurn();
+            hidePromotionDialog();
+        }
+    }
+
     private void clearAllSelection() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 squares[row][col].setSelected(false);
+                // Восстанавливаем базовый цвет клетки
+                squares[row][col].updateBaseColor();
             }
         }
     }
@@ -175,6 +259,7 @@ public class ChessGameActivity extends AppCompatActivity {
         chessBoard = new ChessBoard();
         setupChessBoard();
         updatePlayerTurn();
+        hidePromotionDialog();
         Toast.makeText(this, getString(R.string.game_restarted), Toast.LENGTH_SHORT).show();
     }
 }
