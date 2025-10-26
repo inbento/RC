@@ -179,17 +179,22 @@ public class ChessGameActivity extends AppCompatActivity
 
         if (chessBoard.getSelectedPiece() != null) {
             if (chessBoard.movePiece(row, col)) {
-                if (!isPawnPromotion(row, col)) {
-                    if (isTimedGame && chessTimer != null) {
-                        chessTimer.switchTurn();
-                    }
-                    updateBoard();
-                    updatePlayerTurn();
-                } else {
+                if (isTimedGame && chessTimer != null) {
+                    chessTimer.switchTurn();
+                }
+
+                if (isPawnPromotion(row, col)) {
                     if (isTimedGame && chessTimer != null) {
                         chessTimer.pause();
                     }
                     showPromotionDialog(row, col);
+                } else {
+                    updateBoard();
+                    updatePlayerTurn();
+
+                    if (chessBoard.isCheckmate(!chessBoard.isWhiteTurn())) {
+                        showGameOverDialog(chessBoard.isWhiteTurn());
+                    }
                 }
             } else {
                 if (piece != null && piece.isWhite() == chessBoard.isWhiteTurn()) {
@@ -257,6 +262,10 @@ public class ChessGameActivity extends AppCompatActivity
 
             updatePlayerTurn();
             hidePromotionDialog();
+
+            if (chessBoard.isCheckmate(!chessBoard.isWhiteTurn())) {
+                showGameOverDialog(chessBoard.isWhiteTurn());
+            }
         }
     }
 
@@ -304,7 +313,31 @@ public class ChessGameActivity extends AppCompatActivity
         }
 
         String colorText = isWhiteTurn ? getString(R.string.white) : getString(R.string.black);
-        tvCurrentPlayer.setText(playerText + " (" + colorText + ")");
+
+        if (chessBoard.isKingInCheck(isWhiteTurn)) {
+            if (chessBoard.isCheckmate(isWhiteTurn)) {
+                tvCurrentPlayer.setText("ШАХ И МАТ! Победили " + (!isWhiteTurn ? "Белые" : "Черные"));
+                showGameOverDialog(!isWhiteTurn);
+            } else {
+                tvCurrentPlayer.setText(playerText + " (" + colorText + ") - ШАХ!");
+            }
+        } else {
+            tvCurrentPlayer.setText(playerText + " (" + colorText + ")");
+        }
+    }
+
+    private void showGameOverDialog(boolean isWhiteWinner) {
+        if (isTimedGame && chessTimer != null) {
+            chessTimer.stop();
+        }
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Игра окончена!")
+                .setMessage("ШАХ И МАТ!\nПобедили: " + (isWhiteWinner ? "Белые" : "Черные"))
+                .setPositiveButton("Новая игра", (dialog, which) -> restartGame())
+                .setNegativeButton("Выход", (dialog, which) -> finish())
+                .setCancelable(false)
+                .show();
     }
 
     private void restartGame() {

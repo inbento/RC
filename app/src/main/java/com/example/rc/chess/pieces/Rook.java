@@ -4,6 +4,8 @@ import com.example.rc.chess.ChessPiece;
 import com.example.rc.chess.ChessBoard;
 
 public class Rook extends ChessPiece {
+    private boolean hasMoved = false;
+
     public Rook(boolean isWhite, int row, int col) {
         super(isWhite, row, col, PieceType.ROOK);
     }
@@ -30,5 +32,13 @@ public class Rook extends ChessPiece {
 
         ChessPiece target = board.getPiece(toRow, toCol);
         return target == null || target.isWhite() != isWhite;
+    }
+
+    public void setMoved() {
+        hasMoved = true;
+    }
+
+    public boolean hasMoved() {
+        return hasMoved;
     }
 }
