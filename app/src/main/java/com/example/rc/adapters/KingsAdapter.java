@@ -37,20 +37,18 @@ public class KingsAdapter extends RecyclerView.Adapter<KingsAdapter.KingViewHold
     public void onBindViewHolder(@NonNull KingViewHolder holder, int position) {
         King king = kings.get(position);
 
-        // Устанавливаем данные
         holder.ivKing.setImageResource(king.getImageRes());
         holder.tvKingName.setText(king.getName());
-        holder.tvKingFaction.setText(king.getFaction());
         holder.tvKingDescription.setText(king.getDescription());
 
-        // Обработчик клика
+        holder.tvKingFaction.setText(holder.itemView.getContext().getString(king.getFaction()));
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onKingSelected(king);
             }
         });
 
-        // Добавляем анимацию при нажатии
         holder.itemView.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case android.view.MotionEvent.ACTION_DOWN:

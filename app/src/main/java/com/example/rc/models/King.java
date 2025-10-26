@@ -4,9 +4,9 @@ public class King {
     private int imageRes;
     private String name;
     private String description;
-    private String faction;
+    private int faction;
 
-    public King(int imageRes, String name, String description, String faction) {
+    public King(int imageRes, String name, String description, int faction) {
         this.imageRes = imageRes;
         this.name = name;
         this.description = description;
@@ -17,5 +17,5 @@ public class King {
     public int getImageRes() { return imageRes; }
     public String getName() { return name; }
     public String getDescription() { return description; }
-    public String getFaction() { return faction; }
+    public int getFaction() { return faction; }
 }
