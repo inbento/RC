@@ -81,4 +81,10 @@
     <string name="black_wins">Black wins!</string>
     <string name="new_game">New game</string>
 
+    <string name="no_browser">No app found to open the link</string>
+
+    <string name="chess_rules_url">https://en.wikipedia.org/wiki/Rules_of_chess</string>
+
+    <string name="open_with">Open with</string>
+
 </resources>

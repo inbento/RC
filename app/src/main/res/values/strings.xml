@@ -83,4 +83,10 @@
     <string name="black_wins">Победили Черные!</string>
     <string name="new_game">Новая игра</string>
 
+    <string name="no_browser">Не найдено приложение для открытия ссылки</string>
+
+    <string name="chess_rules_url">https://ru.wikipedia.org/wiki/Правила_шахмат</string>
+
+    <string name="open_with">Открыть с помощью</string>
+
 </resources>

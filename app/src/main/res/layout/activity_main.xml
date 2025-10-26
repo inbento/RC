@@ -8,13 +8,24 @@
 
     <ImageButton
         android:id="@+id/btnLanguage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_change_language"
         android:scaleType="centerInside"
         android:background="@drawable/btn_language_bg"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_margin="16dp" />
+
+    <ImageButton
+        android:id="@+id/btnRules"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_chess_rules"
+        android:scaleType="centerInside"
+        android:background="@drawable/btn_language_bg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
         android:layout_margin="16dp" />
 
     <LinearLayout

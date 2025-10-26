@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,14 +21,13 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnStart, btnKings, btnStats, btnExit;
-    private ImageButton btnLanguage;
+    private ImageButton btnLanguage, btnRules;
     private String currentLanguage = "ru";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Загружаем язык ДО setContentView
         loadLanguagePreference();
         setLocale(currentLanguage);
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         btnKings = findViewById(R.id.btnKings);
         btnStats = findViewById(R.id.btnStats);
         btnExit = findViewById(R.id.btnExit);
+        btnRules = findViewById(R.id.btnRules);
     }
 
     private void loadLanguagePreference() {
@@ -101,6 +103,13 @@ public class MainActivity extends AppCompatActivity {
                 exitAppWithConfirmation();
             }
         });
+
+        btnRules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openChessRules();
+            }
+        });
     }
 
     private void showLanguageDialog() {
@@ -149,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
-    // Для правильной работы смены языка при запуске
     @Override
     protected void attachBaseContext(Context newBase) {
         SharedPreferences preferences = newBase.getSharedPreferences("AppSettings", MODE_PRIVATE);
@@ -182,6 +190,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, StatisticActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private void openChessRules() {
+        String rulesUrl = getString(R.string.chess_rules_url);
+
+        Log.d("ChessRules", "Opening URL: " + rulesUrl);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(rulesUrl));
+        Intent chooser = Intent.createChooser(intent, getString(R.string.open_with));
+
+        if (chooser.resolveActivity(getPackageManager()) != null) {
+            startActivity(chooser);
+        } else {
+            Toast.makeText(this, getString(R.string.no_browser), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void exitAppWithConfirmation() {
