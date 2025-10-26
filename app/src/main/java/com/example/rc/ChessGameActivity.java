@@ -101,6 +101,7 @@ public class ChessGameActivity extends AppCompatActivity
         long initialTimeMillis = gameTimeSeconds * 1000;
         chessTimer = new ChessTimer(initialTimeMillis, tvWhiteTimer, tvBlackTimer,
                 indicatorWhite, indicatorBlack, this);
+        chessTimer.start();
     }
 
     @Override
@@ -178,21 +179,17 @@ public class ChessGameActivity extends AppCompatActivity
 
         if (chessBoard.getSelectedPiece() != null) {
             if (chessBoard.movePiece(row, col)) {
-                if (isTimedGame && chessTimer != null) {
-                    if (!chessTimer.isRunning()) {
-                        chessTimer.start();
-                    } else {
+                if (!isPawnPromotion(row, col)) {
+                    if (isTimedGame && chessTimer != null) {
                         chessTimer.switchTurn();
                     }
-                }
-                if (isPawnPromotion(row, col)) {
+                    updateBoard();
+                    updatePlayerTurn();
+                } else {
                     if (isTimedGame && chessTimer != null) {
                         chessTimer.pause();
                     }
                     showPromotionDialog(row, col);
-                } else {
-                    updateBoard();
-                    updatePlayerTurn();
                 }
             } else {
                 if (piece != null && piece.isWhite() == chessBoard.isWhiteTurn()) {
@@ -250,16 +247,16 @@ public class ChessGameActivity extends AppCompatActivity
     @Override
     public void onPieceSelected(int pieceType) {
         if (promotionRow != -1 && promotionCol != -1) {
-            if (isTimedGame && chessTimer != null) {
-                chessTimer.pause();
-            }
             chessBoard.promotePawn(promotionRow, promotionCol, pieceType);
             updateBoard();
-            updatePlayerTurn();
-            hidePromotionDialog();
+
             if (isTimedGame && chessTimer != null) {
                 chessTimer.resume();
+                chessTimer.switchTurn();
             }
+
+            updatePlayerTurn();
+            hidePromotionDialog();
         }
     }
 
@@ -315,6 +312,7 @@ public class ChessGameActivity extends AppCompatActivity
         if (isTimedGame) {
             if (chessTimer != null) {
                 chessTimer.reset(gameTimeSeconds * 1000);
+                chessTimer.start();
             } else {
                 setupTimer();
             }

@@ -210,7 +210,6 @@ public class ChessTimer {
         return String.format("%d:%02d", minutes, seconds);
     }
 
-    // Геттеры для состояния
     public boolean isRunning() {
         return isRunning;
     }
